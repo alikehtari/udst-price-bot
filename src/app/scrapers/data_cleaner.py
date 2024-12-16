@@ -44,3 +44,29 @@ class DataCleaner:
             list[dict]: A filtered list of dictionaries with specified exchanges removed.
         """
         return [exchange for exchange in data if exchange["id"] not in ids_to_remove]
+
+    @staticmethod
+    def calculate_average_price(cleaned_data):
+        """
+        Calculates the mean (average) of the buy and sell prices from cleaned data.
+
+        Args:
+            cleaned_data (list[dict]): A list of dictionaries with 'buy' and 'sell' prices.
+
+        Returns:
+            float: The average price of all buy and sell prices combined.
+        """
+        total_price = 0
+        count = 0
+
+        for exchange in cleaned_data:
+            try:
+                total_price += exchange["buy"] + exchange["sell"]
+                count += 2  # Adding two values (buy and sell)
+            except KeyError as e:
+                print(f"Missing key in exchange data: {e}")
+
+        if count == 0:
+            return 0  # Avoid division by zero
+
+        return MathOperations.divide(total_price, count)

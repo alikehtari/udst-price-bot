@@ -38,3 +38,21 @@ class MathOperations:
             return int(float(number_str))
         except ValueError:
             raise ValueError(f"Invalid number string: {number_str}")
+    
+
+    def divide(numerator, denominator):
+        """
+        Safely divides two numbers and handles division by zero.
+
+        Args:
+            numerator (float): The numerator of the division.
+            denominator (float): The denominator of the division.
+
+        Returns:
+            float: The result of the division. Returns 0 if the denominator is 0.
+        """
+        if denominator == 0:
+            print("Warning: Division by zero. Returning 0.")
+            return "0"
+        result = numerator // denominator
+        return f"{result:,}"

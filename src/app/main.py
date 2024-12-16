@@ -2,6 +2,7 @@ import logging
 import os
 import time
 from dotenv import load_dotenv
+from numpy import average
 from services.telegram_service import TelegramService
 from services.message_generator import MessageGenerator
 from scrapers.data_cleaner import DataCleaner
@@ -44,9 +45,11 @@ def main():
 
         # Step 2: Generate message
         message = MessageGenerator.generate_message(cleaned_data)
+        average_price = DataCleaner.calculate_average_price(cleaned_data)
 
         # Step 3: Send message to Telegram
         telegram.send_message(message)
+        telegram.send_message(f"قیمت لحظه ای تتر : {average_price}")
 
     except Exception as e:
         logging.error("An error occurred during execution", exc_info=True)
